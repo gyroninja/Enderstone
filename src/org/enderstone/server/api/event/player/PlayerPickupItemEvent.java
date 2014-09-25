@@ -28,16 +28,32 @@ public class PlayerPickupItemEvent extends Event implements Cancellable {
 	private final Player player;
 	private final ItemStack item;
 
-	//TODO implement this
+	/**
+	 * PlayerPickupItemEvent is called when a player
+	 * picks up an item.
+	 * 
+	 * @param player the player that picked the item up
+	 * @param item the item that was picked up
+	 */
 	public PlayerPickupItemEvent(Player player, ItemStack item) {
 		this.player = player;
 		this.item = item;
 	}
 
+	/**
+	 * Get the player that picked the item up.
+	 * 
+	 * @return The player that picked the item up
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Get the item that was picked up.
+	 * 
+	 * @return The item that was picked up
+	 */
 	public ItemStack getItem() {
 		return item;
 	}
