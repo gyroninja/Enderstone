@@ -23,12 +23,36 @@ import org.enderstone.server.api.event.Event;
 public class PlayerToggleSprintEvent extends Event {
 
 	private final Player player;
+	private final boolean sprinting;
 
-	public PlayerToggleSprintEvent(Player player) {
+	/**
+	 * PlayerToggleSprintEvent is called when a player
+	 * starts or stops sprinting.
+	 * 
+	 * @param player the player that either started or stopped sprinting
+	 * @param sprinting whether or not the player started sprinting
+	 */
+	public PlayerToggleSprintEvent(Player player, boolean sprinting) {
 		this.player = player;
+		this.sprinting = sprinting;
 	}
 
+	/**
+	 * Get the player that either started or stopped sprinting.
+	 * 
+	 * @return The player that either started or stopped sprinting
+	 */
 	public Player getPlayer() {
 		return player;
+	}
+
+	/**
+	 * Get whether or not the player started sprinting.
+	 * 
+	 * @return Whether or not the player started sprinting
+	 */
+	public boolean isSprinting() {
+
+		return sprinting;
 	}
 }
