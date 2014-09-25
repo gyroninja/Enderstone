@@ -20,6 +20,7 @@ package org.enderstone.server.inventory;
 import java.util.List;
 import org.enderstone.server.EnderLogger;
 import org.enderstone.server.Main;
+import org.enderstone.server.api.event.player.PlayerDropItemEvent;
 import org.enderstone.server.api.messages.SimpleMessage;
 import org.enderstone.server.entity.EnderPlayer;
 import org.enderstone.server.packet.play.PacketInClickWindow;
@@ -132,14 +133,22 @@ public class InventoryHandler {
 		if (stack == null)
 			return;
 		if (stack.getAmount() <= 1 || dropFullStack) {
-			world.dropItem(player.getLocation(), stack, 10);
-			inventory.set(slot, null);
+			PlayerDropItemEvent e = new PlayerDropItemEvent(player, stack);
+			Main.getInstance().callEvent(e);
+			if (!e.isCancelled()) {
+				world.dropItem(player.getLocation(), stack, 10);
+				inventory.set(slot, null);
+			}
 		} else {
-			stack.setAmount((byte) (stack.getAmount() - 1));
-			ItemStack cloned = stack.clone();
-			cloned.setAmount((byte) 1);
-			world.dropItem(player.getLocation(), cloned, 10);
-			inventory.set(slot, stack);
+			PlayerDropItemEvent e = new PlayerDropItemEvent(player, stack);
+			Main.getInstance().callEvent(e);
+			if (!e.isCancelled()) {
+				stack.setAmount((byte) (stack.getAmount() - 1));
+				ItemStack cloned = stack.clone();
+				cloned.setAmount((byte) 1);
+				world.dropItem(player.getLocation(), cloned, 10);
+				inventory.set(slot, stack);
+			}
 		}
 	}
 

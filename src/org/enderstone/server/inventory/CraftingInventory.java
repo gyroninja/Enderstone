@@ -40,6 +40,7 @@ public class CraftingInventory extends DefaultHalfInventory {
 	protected void close0() {
 		for(ItemStack item : this.items) {
 			if(item != null) {
+				//TODO Implement player drop event here
 				location.getWorld().dropItem(location, item, 10);
 			}
 		}
